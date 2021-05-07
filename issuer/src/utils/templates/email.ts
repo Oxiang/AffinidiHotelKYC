@@ -13,11 +13,12 @@ export const sendEmail = (qrCode: string, sharingUrl: string, receiver_email: st
         region: "us-east-1",
       });
     
+    console.log(config.wallet_url)
     const redirectUrl: string = `${config.wallet_url}/accept-credentials?vcURL=${sharingUrl}`
 
-    let ses_mail = "From: 'StartUpA Driving License Issuer' <" + sender_email + ">\n";
+    let ses_mail = "From: 'Start-Up A Global Identifier' <" + sender_email + ">\n";
     ses_mail = ses_mail + "To: " + receiver_email + "\n";
-    ses_mail = ses_mail + "Subject: Driving License VC Approval\n";
+    ses_mail = ses_mail + "Subject: Global Identifier VC Approval\n";
     ses_mail = ses_mail + "MIME-Version: 1.0\n";
     ses_mail = ses_mail + "Content-Type: multipart/mixed; boundary=\"NextPart\"\n\n";
     ses_mail = ses_mail + "--NextPart\n";
@@ -33,7 +34,7 @@ export const sendEmail = (qrCode: string, sharingUrl: string, receiver_email: st
     const params = {
         RawMessage: { Data: ses_mail },
         Destinations: [  receiver_email ],
-        Source: "StartUpA Driving License Issuer <" + sender_email + ">"
+        Source: "Start-Up A Global Identifier <" + sender_email + ">"
     }
 
     ses.sendRawEmail(params, (err: any, data: any) => {

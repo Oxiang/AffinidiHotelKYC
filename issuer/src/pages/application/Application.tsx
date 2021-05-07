@@ -142,10 +142,14 @@ const Application: React.FC = (): React.ReactElement => {
               <option>Mariott Hotel</option>
             </FormControl>
           </FormGroup>
-
+          
           <FormGroup controlId='bookingService'>
             <FormLabel style={{margin: '10px 0 0 0'}}>Booking Service</FormLabel>
-            <FormControl name='bookingService' type='text' value={extendVCData.bookingService} onChange={e => updateExtendBaseVC(e)}/>
+            <FormControl name='bookingService' as="select" value={extendVCData.bookingService} onChange={e => updateExtendBaseVC(e)}>
+              <option>Bookings</option>
+              <option>Klook</option>
+              <option>KDays</option>
+            </FormControl>
           </FormGroup>
 
           <div style={{margin: '30px 0'}}>

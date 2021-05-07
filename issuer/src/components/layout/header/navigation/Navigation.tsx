@@ -56,7 +56,7 @@ const LayoutHeaderNavigation = () => {
             {!appState.isAuthenticated && (
               <>
                 <Nav.Item>
-                  <Nav.Link as={NavLink} activeClassName='is-active' to={routes.APPLICANT_LOGIN}>Start applying Driving License</Nav.Link>
+                  <Nav.Link as={NavLink} activeClassName='is-active' to={routes.APPLICANT_LOGIN}>Start applying for Global Identifier</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link as={NavLink} activeClassName='is-active' to={routes.ISSUER_LOGIN}>Sign in as admin</Nav.Link>

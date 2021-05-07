@@ -40,7 +40,6 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
         example.data.givenName = givenName;
         example.data.familyName = familyName;
         example.data.email = email;
-        example.data.hasIDDocument.hasIDDocument.expiryDate = expiryDate;
         example.data.passportNumber = passportNumber;
         example.data.hotelBookingId = hotelBookingId;
         example.data.bookingService = bookingService;
@@ -86,8 +85,7 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
         <p><strong>Family Name:</strong> {familyName}</p>
         <p><strong>Passport Country:</strong> {country}</p>
         <p><strong>Passport Number:</strong> {passportNumber}</p>
-        <p><strong>Passport Expiry Date:</strong> {expiryDate}</p>
-        <p><strong>Hotel Booking ID:</strong> {hotelBookingId}</p>
+        <p><strong>Hotel Booking ID:</strong> {hotelBookingId} <strong>{"(MATCHED)"}</strong></p>
         <p><strong>Hotel:</strong> {hotel}</p>
         <p><strong>Booking Service:</strong> {bookingService}</p>
         <p><strong>Country of Issuance:</strong> {country}</p>

@@ -27,7 +27,7 @@ function renderNavigationWithContext(options?: Partial<AppContextState>) {
 describe('Layout Header Navigation component test', () => {
   test('Check if component renders properly (user not logged in)', () => {
     const {getByText} = renderNavigationWithContext();
-    const startAnchor = getByText('Start applying Driving License');
+    const startAnchor = getByText('Start applying for Global Identifier');
 
     expect(startAnchor).toBeTruthy();
 
