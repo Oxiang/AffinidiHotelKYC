@@ -16,8 +16,8 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
   const [VCschemaData] = useState<any>(JSON.stringify(drivingLicenseVCData));
 
   const { username, payload, applicationID, docID, approved } = props.location.state.state;
-  const { givenName, familyName, holderDid, idClass, issueDate} = payload;
-  const { country, drivingClass, email, issuerOrganization } = JSON.parse(idClass);
+  const { givenName, familyName, holderDid, idClass, expiryDate} = payload;
+  const { country, passportNumber, email, hotelBookingId, bookingService, hotel } = JSON.parse(idClass);
 
   const history = useHistory();
 
@@ -40,7 +40,11 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
         example.data.givenName = givenName;
         example.data.familyName = familyName;
         example.data.email = email;
-        example.data.hasIDDocument.hasIDDocument.issueDate = issueDate;
+        example.data.hasIDDocument.hasIDDocument.expiryDate = expiryDate;
+        example.data.passportNumber = passportNumber;
+        example.data.hotelBookingId = hotelBookingId;
+        example.data.bookingService = bookingService;
+        example.data.hotel = hotel;
         example.data.hasIDDocument.hasIDDocument.idClass = idClass;
         example.holderDid = holderDid || '';
         
@@ -62,9 +66,9 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
 
         const db = firebase.firestore();
         // Store the information under Approved Table
-        db.collection('drivinglicense-approved').add({ username, payload, applicationID, approved: true });
+        db.collection('passport-approved').add({ username, payload, applicationID, approved: true });
         // Delete the information under the Pending Approval Table
-        db.collection('drivinglicense-waiting-approval').doc(docID).delete();
+        // db.collection('passport-waiting-approval').doc(docID).delete();
 
         alert('Application has been approved and have alerted the applicant.');
         history.push(routes.ISSUER);
@@ -80,11 +84,14 @@ const ApplicationInfoPage: React.FC<IProps & RouteComponentProps> = (props: IPro
         <h3><strong>Application ID:</strong> {applicationID}</h3>
         <p><strong>Given Name:</strong> {givenName}</p>
         <p><strong>Family Name:</strong> {familyName}</p>
-        <p><strong>Date of Issuance:</strong> {issueDate}</p>
-        <p><strong>Issuer Organisation:</strong> {issuerOrganization}</p>
+        <p><strong>Passport Country:</strong> {country}</p>
+        <p><strong>Passport Number:</strong> {passportNumber}</p>
+        <p><strong>Passport Expiry Date:</strong> {expiryDate}</p>
+        <p><strong>Hotel Booking ID:</strong> {hotelBookingId}</p>
+        <p><strong>Hotel:</strong> {hotel}</p>
+        <p><strong>Booking Service:</strong> {bookingService}</p>
         <p><strong>Country of Issuance:</strong> {country}</p>
-        <p><strong>Driving Class:</strong> {drivingClass}</p>
-        <Button style={{display: 'block', margin: '10px 0 0 0'}}>View Proof of Document</Button>
+        <Button style={{display: 'block', margin: '10px 0 0 0'}}>Passport</Button>
 
         { !approved ? (
           <>

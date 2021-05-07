@@ -16,8 +16,8 @@ export const drivingLicenseVCData: VCBuildUnsignedInput = {
       '@type': ['Role', 'IDDocumentRole'],
       "hasIDDocument": {
         '@type': 'IDDocument',
-        "issuer": 'Automobile Association of Singapore',
-        "documentType": 'driving_license',
+        "issuer": 'Global Identifier Association of Singapore',
+        "documentType": 'passport_bookings',
         "issueDate": '2019...',
         "classificationMethod": 'automatic',
         "idClass": '...',

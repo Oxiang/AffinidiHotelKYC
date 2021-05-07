@@ -9,29 +9,31 @@ import randomstring from 'randomstring';
 interface IBaseVCData {
     givenName: string;
     familyName: string;
-    issueDate: string;
   }
   
   interface IExtendVCData {
-    drivingLicenseID: string;
+    passportNumber: string;
     country: string;
-    drivingClass: string;
+    hotelBookingId: string;
     email: string;
-    issuerOrganization: string;
+    hotel: string;
+    bookingService: string;
+    expiryDate: string;
   }
   
   const defaultBaseVCData: IBaseVCData = {
     givenName: '',
-    familyName: '',
-    issueDate: ''
+    familyName: ''
   }
   
   const defaultExtendVCData: IExtendVCData = {
-    drivingLicenseID: '',
+    passportNumber: '',
     country: 'Singapore',
-    drivingClass: '1',
+    expiryDate: '',
+    hotelBookingId: '',
     email: '',
-    issuerOrganization: 'Automobile Association of Singapore'
+    hotel: 'Hilton Hotel',
+    bookingService: 'Bookings.com'
   }
 
 interface IPayload extends IBaseVCData{
@@ -52,7 +54,7 @@ const Application: React.FC = (): React.ReactElement => {
      * */
     const issueDrivingLicensePersonVC = async () => {
         try {
-          const { givenName, familyName, issueDate } = baseVCData;
+          const { givenName, familyName } = baseVCData;
 
           // Generate a random Affinidi Driving License ID, which will double up as an application ID
           const applicationID: string = randomstring.generate(10);
@@ -61,17 +63,17 @@ const Application: React.FC = (): React.ReactElement => {
           const payload: IPayload = {
             givenName,
             familyName,
-            issueDate,
             idClass: JSON.stringify(vcToStringify),
             holderDid: inputDID || appState.didToken || '',
           }
 
           // Store unsignedVC into issuer's datsabase
           const db = firebase.firestore();
-          db.collection('drivinglicense-waiting-approval').add({username: appState.username, payload, applicationID, approved: false})
+          await db.collection('passport-waiting-approval').add({username: appState.username, payload, applicationID, approved: false})
 
           alert('You have successfully submitted your application.');
         } catch (error) {
+            console.log("firestore", error)
             ApiService.alertWithBrowserConsole(error.message);
         }
     }
@@ -100,7 +102,7 @@ const Application: React.FC = (): React.ReactElement => {
             >Clear all fields
           </Button>
 
-          <p><strong>Step 1:</strong>Please fill in details of your driving license</p>
+          <p><strong>Step 1:</strong>Please fill in details of your Passport information and Booking Credentials</p>
           <FormGroup controlId='email'>
             <FormLabel className='label' style={{margin: '10px 0 0 0'}}>Email Address:</FormLabel>
             <FormControl name='email' type='text' value={extendVCData.email} onChange={e => updateExtendBaseVC(e)}/>
@@ -116,37 +118,40 @@ const Application: React.FC = (): React.ReactElement => {
             <FormControl name='familyName' type='text' value={baseVCData.familyName} onChange={e => updateBaseVC(e)}/>
           </FormGroup>
 
-          <FormGroup controlId='issueDate'>
-            <FormLabel style={{margin: '10px 0 0 0'}}>Date of Issuance:</FormLabel>
-            <FormControl name='issueDate' type='text' value={baseVCData.issueDate} onChange={e => updateBaseVC(e)}/>
+          <FormGroup controlId='passportNumber'>
+            <FormLabel style={{margin: '10px 0 0 0'}}>Passport Number</FormLabel>
+            <FormControl name='passportNumber' type='text' value={extendVCData.passportNumber} onChange={e => updateExtendBaseVC(e)}/>
           </FormGroup>
 
-          <FormGroup controlId='drivingLicense'>
-            <FormLabel style={{margin: '10px 0 0 0'}}>Driving License ID:</FormLabel>
-            <FormControl name='drivingLicenseID' type='text' value={extendVCData.drivingLicenseID} onChange={e => updateExtendBaseVC(e)}/>
+          <FormGroup controlId='expiryDate'>
+            <FormLabel style={{margin: '10px 0 0 0'}}>Passport Expiry Date</FormLabel>
+            <FormControl name='expiryDate' type='text' value={extendVCData.expiryDate} onChange={e => updateExtendBaseVC(e)}/>
           </FormGroup>
 
-          <FormGroup controlId='drivingClass'>
-            <FormLabel style={{margin: '10px 0 0 0'}}>Driving Class:</FormLabel>
-            <FormControl name='drivingClass' as="select" value={extendVCData.drivingClass} onChange={e => updateExtendBaseVC(e)}>
-              <option>1</option>
-              <option>2</option>
-              <option>2A</option>
-              <option>2B</option>
-              <option>3</option>
-              <option>3A</option>
-              <option>3C</option>
-              <option>3CA</option>
-              <option>4</option>
-              <option>4A</option>
-              <option>5</option>
+          
+          <FormGroup controlId='hotelBookingId'>
+            <FormLabel style={{margin: '10px 0 0 0'}}>Hotel Booking ID</FormLabel>
+            <FormControl name='hotelBookingId' type='text' value={extendVCData.hotelBookingId} onChange={e => updateExtendBaseVC(e)}/>
+          </FormGroup>
+
+          <FormGroup controlId='hotel'>
+            <FormLabel style={{margin: '10px 0 0 0'}}>Hotel</FormLabel>
+            <FormControl name='hotel' as="select" value={extendVCData.hotel} onChange={e => updateExtendBaseVC(e)}>
+              <option>Hilton Hotel</option>
+              <option>Ibis Hotel</option>
+              <option>Mariott Hotel</option>
             </FormControl>
           </FormGroup>
 
+          <FormGroup controlId='bookingService'>
+            <FormLabel style={{margin: '10px 0 0 0'}}>Booking Service</FormLabel>
+            <FormControl name='bookingService' type='text' value={extendVCData.bookingService} onChange={e => updateExtendBaseVC(e)}/>
+          </FormGroup>
+
           <div style={{margin: '30px 0'}}>
-            <p><strong>Step 2:</strong>Upload Proof of Driving License</p>
+            <p><strong>Step 2:</strong>Upload Passport</p>
             <FormFile id="formcheck-api-regular">
-              <FormFile.Label>Proof of Driving License</FormFile.Label>
+              <FormFile.Label>Passport</FormFile.Label>
               <FormFile.Input />
             </FormFile>
           </div>
