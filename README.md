@@ -10,11 +10,11 @@ What if there is a way to use Affinidi API to shorten the process and make it sa
 
 ## Scenario and Solution
 
-Start-Up A decides to provide an universal service that aims to shorten and digitalize the identification process , or KYC, by reducing it down to a single step during the check-in. 
+Start-Up A (e.g called Global Identifier) decides to provide an universal service that aims to shorten and digitalize the identification process. This will be achieve by reducing down the check-in procedure to a single step. 
 
-To achieve that, Start-Up A has to collect the traveller's information (e.g. Passport, Hotel Booking details) prior to the check-in. Following that, Start-Up A will provide an unique identifier to the traveller.
+To achieve that, Start-Up A has to collect the traveller's information (e.g. Passport, Hotel Booking details) prior to the check-in. After checking and approving it, Start-Up A will provide an unique identifier to the traveller to save in their wallet.
 
-On the day of the check-in, the traveller would simply have to give the identifier to the hotel's receptionist through digital means and the check-in is done.
+On the day of the check-in, the traveller would simply have to share the identifier in their wallet to the hotel's receptionist through digital means and the check-in is done.
 
 Simple!
 
@@ -27,13 +27,13 @@ This is where Affinidi comes in. Start-Up A will leverage Affinidi's API to crea
 3. Verifier - Hotel
 
 ### Holder
-The holder are the travellers that books the hotel during their travel. They are required to submit their passport photo, passport credentials and booking details to Start-Up A.
+The holder is a traveller that books the hotel during their travel. He or She are required to submit their passport photo, passport credentials and booking details to Start-Up A.
 
 ### Issuer
 Start-Up A is the issuer that checks the information from the travellers. Start-Up A will conduct their own due diligence to ensure that the information are proper before giving the approval and sending the identifier to the the travellers.
 
 ### Verifier
-During check-in, the hotel will receive the identifier from the traveller through digital means. This could include scanning QR code or one-line form submission, both excluding the physical aspect. Upon receiving, they will verify the identifier with Start-Up A to ensure the following:
+During check-in, the hotel will receive the identifier from the traveller through digital means. This could include scanning QR code to access the Hotel's webpage. This process will remove the physical aspect of check-in. Upon receiving, they will verify the identifier with Start-Up A to ensure the following:
 
 1. Traveller is who they say they are
 2. They had made a reservation in the hotel
@@ -47,7 +47,7 @@ Start-Up A creates value to both the travellers and the hotel.
 2. Remove the physical aspect of identification, especially important during COVID-19 situation
 3. Reuse passport credentials for future check-ins using the same digital method
 
-Affinidi provides an excellent service to Start-Up A simply because it provides a fully build Self-soverign Identity infrastructure for companies like Start-Up A to plug-and-play. 
+Affinidi helps Start-Up A by providing a fully built Self-Sovereign Identity infrastructure to plug-and-play. 
 
 This reduces the cost of development and time required to build the entire system, which is a huge benefit for entrepreneur venturing companies like Start-Up A.
 
@@ -55,19 +55,19 @@ This reduces the cost of development and time required to build the entire syste
 
 ### Basic Requirements
 
-Travellers will have to sign up with Affinidi to obtain the Affinidi's API key and API key Hash.
+Travellers will have to sign up with Affinidi to obtain the Affinidi's API key, API key Hash, username and password.
 
-Similar to normal hotel bookings, travellers would also have to book a hotel before hand
+As for hotel bookings, travellers would also have to book a hotel before hand as per normal.
 
 ### Step 1
 
-Travellers have to access the Start-Up A website to register their personal details, passport details and their booking details. Once the traveller entered the landing page, they have to click on the 'Start applying
+Travellers have to access the Start-Up A website to register their personal details, passport details and their booking details. Once the traveller entered the landing page, they have to click on the 'Start applying'.
 
 ![](image/step0.jpg)
 
 ### Step 2
 
-Next, traveller must log in with their Affinidi's username and password
+Next, traveller must log in with their Affinidi's username and password.
 
 ![](image/step1.jpg)
 
@@ -84,13 +84,13 @@ Once logged in, the traveller will be prompt to record down the following detail
 7. Hotel
 8. Booking Service
 
-and upload their Passport for due-diligence in background check
+and upload their Passport for due-diligence in background check.
 
 ![](image/step3.jpg)
 
 ![](image/step4.jpg)
 
-Traveller will press submit once they are done
+Traveller will press submit once they are done.
 
 ### Step 4
 
@@ -124,7 +124,7 @@ For the traveller, they will receive an email from Start-Up A to notify that the
 
 ### Step 8 
 
---- Fast forward to the day the traveller reached the hotel (e.g. Hilton Hotel) ----
+--- **Fast forward to the day the traveller reached the hotel (e.g. Hilton Hotel)** ----
 
 Once the the traveller reached the hotel, they can access the hotel's webpage either through QR code or just the URL.
 
@@ -140,3 +140,37 @@ From the webpage, they can choose to share their wallet.
 
 On the same webpage, the hotel (e.g. Hilton Hotel) can login using their own Affinidi credentials and access the dashboard. On the dashboard, they will be able to see and be assured that the traveller's identity is legit. All of this through digital means
 ![](image/step14.jpg)
+
+
+## End of Journey
+
+With that, the traveller has successfully check-in into the hotel, all in a short time span and a contact-less method.
+
+## How to run locally?
+
+First, you would have to create firebase account as well as have a AWS SES access keys.
+
+For each of the folders - issuer, holder and verifier you would have to do the following:
+
+```shell
+# Copy the .env.example into a new file called .env
+cp .env.example .env
+
+# Populate the .env with credentials
+
+npm install
+
+npm start
+```
+
+Run issuer, holder and verifier in the same order
+
+## Credits
+
+The code base was built on top of the Affinidi use case implementation to express the idea. The following are the URLS of the repositories.
+
+https://github.com/affinityproject/affinidi-drivinglicense-verifier
+
+https://github.com/affinityproject/affinidi-drivinglicense-issuer
+
+https://github.com/affinityproject/affinidi-drivinglicense-holder
